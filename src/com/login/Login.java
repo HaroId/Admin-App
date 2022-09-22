@@ -1,7 +1,12 @@
 
 package com.login;
 
+import com.register.Register;
+import com.register.conexion.Conexion;
 import java.awt.Color;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
     
@@ -9,8 +14,14 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
+        ocultarError();
     }
 
+    public void ocultarError(){
+        errornotlogin.setVisible(false);
+        errorusertxt.setVisible(false);
+    } 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -36,9 +47,10 @@ public class Login extends javax.swing.JFrame {
         regbtn = new javax.swing.JPanel();
         regbtntxt = new javax.swing.JLabel();
         forgotbtn = new javax.swing.JLabel();
+        errorusertxt = new javax.swing.JLabel();
+        errornotlogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
         setBounds(new java.awt.Rectangle(0, 0, 800, 500));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
@@ -100,6 +112,11 @@ public class Login extends javax.swing.JFrame {
         usertxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usertxtActionPerformed(evt);
+            }
+        });
+        usertxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                usertxtKeyReleased(evt);
             }
         });
         bg.add(usertxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 370, 30));
@@ -237,6 +254,9 @@ public class Login extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 regbtntxtMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                regbtntxtMousePressed(evt);
+            }
         });
 
         javax.swing.GroupLayout regbtnLayout = new javax.swing.GroupLayout(regbtn);
@@ -268,6 +288,16 @@ public class Login extends javax.swing.JFrame {
             }
         });
         bg.add(forgotbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, -1));
+
+        errorusertxt.setFont(new java.awt.Font("Roboto Light", 0, 10)); // NOI18N
+        errorusertxt.setForeground(new java.awt.Color(255, 0, 0));
+        errorusertxt.setText("*Por favor, verifique su usuario.");
+        bg.add(errorusertxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 140, 20));
+
+        errornotlogin.setFont(new java.awt.Font("Roboto Light", 0, 10)); // NOI18N
+        errornotlogin.setForeground(new java.awt.Color(255, 0, 0));
+        errornotlogin.setText("*Por favor, verifica tu usuario y contraseña e intentalo de nuevo.");
+        bg.add(errornotlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 300, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -369,7 +399,9 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginbtntxtMouseClicked
 
     private void regbtntxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regbtntxtMouseClicked
-        // TODO add your handling code here:
+//        Register a = new Register();
+//        a.setVisible(true);
+//        dispose();
     }//GEN-LAST:event_regbtntxtMouseClicked
 
     private void regbtntxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regbtntxtMouseEntered
@@ -388,6 +420,34 @@ public class Login extends javax.swing.JFrame {
         forgotbtn.setForeground(Color.gray);
     }//GEN-LAST:event_forgotbtnMouseExited
 
+    private void regbtntxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regbtntxtMousePressed
+        Register a = new Register();
+        a.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_regbtntxtMousePressed
+
+    private void usertxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usertxtKeyReleased
+        if(verficarUsuario(usertxt.getText())){
+            usertxt.setForeground(Color.black);
+            errorusertxt.setVisible(false);
+        }
+        else if(usertxt.getText() == "*Por favor, verifique su usuario."){
+            errorusertxt.setVisible(false);
+        }
+        else{
+            usertxt.setForeground(Color.red);
+            errorusertxt.setVisible(true);
+        }
+    }//GEN-LAST:event_usertxtKeyReleased
+    
+    public boolean verficarUsuario(String usuario){
+        String regex = "^[A-Za-z]\\w{3,20}$";
+        Pattern errorUsuario = Pattern.compile(regex);
+        
+        Matcher mat = errorUsuario.matcher(usuario);
+        
+        return mat.find();
+    }
     /**
      * @param args the command line arguments
      */
@@ -415,6 +475,9 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        
+                
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -427,6 +490,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel bg;
     private javax.swing.JPanel closebtn;
     private javax.swing.JLabel closebtntxt;
+    private javax.swing.JLabel errornotlogin;
+    private javax.swing.JLabel errorusertxt;
     private javax.swing.JLabel forgotbtn;
     private javax.swing.JLabel h;
     private javax.swing.JPanel header;
