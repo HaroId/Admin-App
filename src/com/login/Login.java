@@ -1,27 +1,75 @@
-
 package com.login;
 
+import com.homepage.Homepage;
 import com.register.Register;
 import com.register.conexion.Conexion;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class Login extends javax.swing.JFrame {
-    
-    int xMouse,yMouse;
-    
+
+    int xMouse, yMouse;
+
     public Login() {
         initComponents();
         ocultarError();
     }
 
-    public void ocultarError(){
+    public void ocultarError() {
         errornotlogin.setVisible(false);
         errorusertxt.setVisible(false);
-    } 
-    
+        usernoexist.setVisible(false);
+    }
+
+    public void verificacion_final() {
+        boolean completo = true;
+        String s = new String(passtxt.getPassword());
+        
+        ////////////////////////////////////////////////////////////////////////
+        Conexion conn = new Conexion("user_db");
+        conn.connect();
+        conn.verificar1(usertxt.getText(), usernoexist);
+        ////////////////////////////////////////////////////////////////////////
+
+        if (errorusertxt.isShowing() == true || usertxt.getText().isEmpty()) {
+            completo = false;
+        } else if (s.isEmpty()) {
+            completo = false;
+        } else if (errornotlogin.isShowing() == true) {
+            completo = false;
+        } else if (usernoexist.isVisible()) {
+            completo = false;
+        }
+
+        if (completo == true) {
+            
+            conn.connect();
+            String query = "select * from user where user = binary '"+usertxt.getText()+"'"
+                    + " and password = binary '"+s+"';";
+            conn.verificarusuariocontraseña(query, errornotlogin);
+            
+            if(errornotlogin.isVisible() == false){
+                
+                conn.connect();
+                conn.obtenerdatos(usertxt.getText());
+                
+                Homepage a = new Homepage();
+                a.setVisible(true);
+                dispose();
+                
+                
+                
+            }
+            
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -49,12 +97,12 @@ public class Login extends javax.swing.JFrame {
         forgotbtn = new javax.swing.JLabel();
         errorusertxt = new javax.swing.JLabel();
         errornotlogin = new javax.swing.JLabel();
+        usernoexist = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 800, 500));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
@@ -82,7 +130,7 @@ public class Login extends javax.swing.JFrame {
 
         logofondo.setBackground(new java.awt.Color(0, 0, 0));
         logofondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/1.gif"))); // NOI18N
-        bg.add(logofondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 270, 520));
+        bg.add(logofondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 270, 500));
 
         title.setFont(new java.awt.Font("Roboto Medium", 1, 24)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -299,6 +347,11 @@ public class Login extends javax.swing.JFrame {
         errornotlogin.setText("*Por favor, verifica tu usuario y contraseña e intentalo de nuevo.");
         bg.add(errornotlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 300, 20));
 
+        usernoexist.setFont(new java.awt.Font("Roboto Light", 0, 10)); // NOI18N
+        usernoexist.setForeground(new java.awt.Color(255, 0, 0));
+        usernoexist.setText("*Este usuario no existe");
+        bg.add(usernoexist, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 120, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -309,7 +362,7 @@ public class Login extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -332,7 +385,7 @@ public class Login extends javax.swing.JFrame {
     private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        this.setLocation(x - xMouse,y - yMouse);
+        this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_headerMouseDragged
 
     private void closebtntxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closebtntxtMouseClicked
@@ -350,7 +403,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_closebtntxtMouseExited
 
     private void loginbtntxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginbtntxtMouseEntered
-        loginbtn.setBackground(new Color(0,230,230));
+        loginbtn.setBackground(new Color(0, 230, 230));
     }//GEN-LAST:event_loginbtntxtMouseEntered
 
     private void loginbtntxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginbtntxtMouseExited
@@ -362,40 +415,42 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_usertxtMouseEntered
 
     private void usertxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usertxtMouseClicked
-        
+
     }//GEN-LAST:event_usertxtMouseClicked
 
     private void usertxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usertxtMousePressed
-        if(usertxt.getText().equals("Ingrese su nombre de usuario")){
+        if (usertxt.getText().equals("Ingrese su nombre de usuario")) {
             usertxt.setText("");
             usertxt.setForeground(Color.black);
         }
-        
-        if (String.valueOf(passtxt.getPassword()).isEmpty()){
+
+        if (String.valueOf(passtxt.getPassword()).isEmpty()) {
             passtxt.setText("**********");
             passtxt.setForeground(Color.gray);
         }
-        
+
 
     }//GEN-LAST:event_usertxtMousePressed
 
     private void passtxtMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passtxtMousePressed
-                
-        if (String.valueOf(passtxt.getPassword()).equals("**********")){
+
+        if (String.valueOf(passtxt.getPassword()).equals("**********")) {
             passtxt.setText("");
             passtxt.setForeground(Color.black);
         }
-        
-        if(usertxt.getText().isEmpty()){
+
+        if (usertxt.getText().isEmpty()) {
             usertxt.setText("Ingrese su nombre de usuario");
             usertxt.setForeground(Color.gray);
+            errorusertxt.setVisible(false);
         }
 
 
     }//GEN-LAST:event_passtxtMousePressed
 
     private void loginbtntxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginbtntxtMouseClicked
-        javax.swing.JOptionPane.showMessageDialog(this, "Intento de login con los datos:\nUsuario: "+ usertxt.getText()+"\nContraseña: "+String.valueOf(passtxt.getPassword()), "LOGIN", HEIGHT);
+        errornotlogin.setVisible(false);
+        verificacion_final();
     }//GEN-LAST:event_loginbtntxtMouseClicked
 
     private void regbtntxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regbtntxtMouseClicked
@@ -405,11 +460,11 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_regbtntxtMouseClicked
 
     private void regbtntxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regbtntxtMouseEntered
-         regbtn.setBackground(new Color(0,230,230));
+        regbtn.setBackground(new Color(0, 230, 230));
     }//GEN-LAST:event_regbtntxtMouseEntered
 
     private void regbtntxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regbtntxtMouseExited
-         regbtn.setBackground(Color.cyan);
+        regbtn.setBackground(Color.cyan);
     }//GEN-LAST:event_regbtntxtMouseExited
 
     private void forgotbtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotbtnMouseEntered
@@ -427,27 +482,25 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_regbtntxtMousePressed
 
     private void usertxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usertxtKeyReleased
-        if(verficarUsuario(usertxt.getText())){
+
+        if (verficarUsuario(usertxt.getText())) {
             usertxt.setForeground(Color.black);
             errorusertxt.setVisible(false);
-        }
-        else if(usertxt.getText() == "*Por favor, verifique su usuario."){
-            errorusertxt.setVisible(false);
-        }
-        else{
+        } else {
             usertxt.setForeground(Color.red);
             errorusertxt.setVisible(true);
         }
     }//GEN-LAST:event_usertxtKeyReleased
-    
-    public boolean verficarUsuario(String usuario){
+
+    public boolean verficarUsuario(String usuario) {
         String regex = "^[A-Za-z]\\w{3,20}$";
         Pattern errorUsuario = Pattern.compile(regex);
-        
+
         Matcher mat = errorUsuario.matcher(usuario);
-        
+
         return mat.find();
     }
+
     /**
      * @param args the command line arguments
      */
@@ -475,9 +528,6 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        
-                
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -508,6 +558,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel regbtntxt;
     private javax.swing.JLabel title;
     private javax.swing.JLabel user;
+    private javax.swing.JLabel usernoexist;
     private javax.swing.JTextField usertxt;
     private javax.swing.JLabel x;
     // End of variables declaration//GEN-END:variables

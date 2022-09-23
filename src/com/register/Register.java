@@ -159,13 +159,20 @@ public class Register extends javax.swing.JFrame {
         
         if(userError.isShowing() == true || usernametxt.getText().isEmpty()){
             completo = false;
+            JOptionPane.showMessageDialog(null, "                Ingrese el usuario\n"
+                    + "valide que el usuario no contenga simbolos");
         }else if(sex == 'd'){
             sexerror.setVisible(true);
             completo = false;
+             JOptionPane.showMessageDialog(null, "Ingrese el gendero");
         }else if(nameError.isShowing() == true || nametxt.getText().isEmpty()){
             completo = false;
+             JOptionPane.showMessageDialog(null, "                 Ingrese el nombre\n"
+                     + "valide que el nombre no tenga numeros o simbolos.");
         }else if(lnameError.isShowing() == true || lastnametxt.getText().isEmpty()){
             completo = false;
+            JOptionPane.showMessageDialog(null, "                  Ingrese el apellido\n"
+                     + "valide que el apellido no tenga numeros o simbolos.");
         }else if(mailerror.isShowing() == true || mailtxt.getText().isEmpty()){
             completo = false;
         }else if(termcb.isSelected() == false){
@@ -189,7 +196,7 @@ public class Register extends javax.swing.JFrame {
         }
         ////////////////////////////////////////////////////////////////////////
         
-        System.out.println(completo);
+//        System.out.println(completo);
         
         String s = new String(passtxt.getPassword());
         
@@ -558,7 +565,7 @@ public class Register extends javax.swing.JFrame {
         gendertitle.setText("GENERO");
         bg.add(gendertitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, 160, 30));
 
-        gendermbtn.setBackground(new java.awt.Color(51, 255, 204));
+        gendermbtn.setBackground(new java.awt.Color(0, 255, 255));
         gendermbtn.setForeground(new java.awt.Color(255, 255, 255));
 
         gendermbtntxt.setFont(new java.awt.Font("Roboto Condensed", 1, 12)); // NOI18N
@@ -591,7 +598,7 @@ public class Register extends javax.swing.JFrame {
 
         bg.add(gendermbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 150, 80, 30));
 
-        genderfbtn.setBackground(new java.awt.Color(51, 255, 204));
+        genderfbtn.setBackground(new java.awt.Color(0, 255, 255));
 
         genderfbtntxt.setFont(new java.awt.Font("Roboto Condensed", 1, 12)); // NOI18N
         genderfbtntxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -861,10 +868,10 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_lastnametxtActionPerformed
 
     private void usernametxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernametxtMouseClicked
-        Conexion conn = new Conexion("user_db");
-        conn.connect();
-        
-        conn.verificar(usernametxt.getText(), usernodisponible);
+//        Conexion conn = new Conexion("user_db");
+//        conn.connect();
+//        
+//        conn.verificar(usernametxt.getText(), usernodisponible);
     }//GEN-LAST:event_usernametxtMouseClicked
 
     private void usernametxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernametxtMouseEntered
@@ -943,7 +950,8 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_gendermbtntxtMouseEntered
 
     private void gendermbtntxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gendermbtntxtMouseExited
-        if (sex == 'f') {
+        
+        if (sex == 'f' || sex == 'd') {
             gendermbtn.setBackground(Color.cyan);
         }
     }//GEN-LAST:event_gendermbtntxtMouseExited
@@ -953,7 +961,8 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_genderfbtntxtMouseEntered
 
     private void genderfbtntxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_genderfbtntxtMouseExited
-        if (sex == 'm') {
+        
+        if (sex == 'm' || sex == 'd') {
             genderfbtn.setBackground(Color.cyan);
         }
     }//GEN-LAST:event_genderfbtntxtMouseExited
