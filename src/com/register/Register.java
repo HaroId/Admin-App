@@ -3,15 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.register;
-import java.sql.*;
 import com.login.Login;
 import com.register.conexion.Conexion;
-import com.user_register.User_register;
 import java.awt.Color;
 import java.util.Arrays;
-import java.util.Date;
 import java.text.SimpleDateFormat;
-import static java.time.temporal.TemporalQueries.localDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JLabel;

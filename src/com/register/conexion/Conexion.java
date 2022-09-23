@@ -1,7 +1,5 @@
 package com.register.conexion;
 
-import com.homepage.Homepage;
-import com.login.Login;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +23,7 @@ public class Conexion {
     public static String name;
     public static String last_name;
     public static String email;
+    public static String username;
 
     /////////////
 
@@ -155,6 +154,7 @@ public class Conexion {
                 name = rs.getString(3);
                 last_name = rs.getString(4);
                 email = rs.getString(6);
+                username = rs.getString(2);
                 
                 
                 

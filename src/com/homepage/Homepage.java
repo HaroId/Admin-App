@@ -32,6 +32,7 @@ public class Homepage extends javax.swing.JFrame {
     public void login(){
         usernametxt.setText(Conexion.name+" "+Conexion.last_name);
         correotxt.setText(Conexion.email);
+        welcomeuser.setText("Welcome! "+Conexion.username);
     }
     
     public void getInfo() {
@@ -91,6 +92,7 @@ public class Homepage extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         panuserimage = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        welcomeuser = new javax.swing.JLabel();
         panusersettings = new javax.swing.JPanel();
         usernametxt = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -210,6 +212,15 @@ public class Homepage extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        welcomeuser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        welcomeuser.setText("Welcome");
+        welcomeuser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        welcomeuser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                welcomeuserMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
         HeaderLayout.setHorizontalGroup(
@@ -218,7 +229,9 @@ public class Homepage extends javax.swing.JFrame {
                 .addComponent(exitbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panfavicon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 677, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 510, Short.MAX_VALUE)
+                .addComponent(welcomeuser, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(panuserimage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         HeaderLayout.setVerticalGroup(
@@ -228,6 +241,10 @@ public class Homepage extends javax.swing.JFrame {
                 .addComponent(exitbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(panfavicon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panuserimage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(welcomeuser)
+                .addGap(17, 17, 17))
         );
 
         bg.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 50));
@@ -561,7 +578,7 @@ public class Homepage extends javax.swing.JFrame {
             panRedes.setBackground(Color.black);
             panImagen.setBackground(Color.black);
             panabouts.setBackground(Color.black);
-
+            
 
             usernametxt.setForeground(Color.white);
             correotxt.setForeground(Color.white);
@@ -575,6 +592,7 @@ public class Homepage extends javax.swing.JFrame {
             facebooktxt.setForeground(Color.white);
             linkedintxt.setForeground(Color.white);
             showemailtxt.setForeground(Color.white);
+            welcomeuser.setForeground(Color.white);
 
 
         } else {
@@ -609,6 +627,7 @@ public class Homepage extends javax.swing.JFrame {
             facebooktxt.setForeground(Color.black);
             linkedintxt.setForeground(Color.black);
             showemailtxt.setForeground(Color.black);
+            welcomeuser.setForeground(Color.black);
         }
     }//GEN-LAST:event_oscurotxtMousePressed
 
@@ -637,6 +656,14 @@ public class Homepage extends javax.swing.JFrame {
     private void emailtxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emailtxtMouseExited
         showemail.setVisible(false);
     }//GEN-LAST:event_emailtxtMouseExited
+
+    private void welcomeuserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_welcomeuserMousePressed
+        if (panusersettings.isVisible()) {
+            panusersettings.setVisible(false);
+        } else {
+            panusersettings.setVisible(true);
+        }
+    }//GEN-LAST:event_welcomeuserMousePressed
 
     /**
      * @param args the command line arguments
@@ -706,5 +733,6 @@ public class Homepage extends javax.swing.JFrame {
     private javax.swing.JLabel showemailtxt;
     private javax.swing.JLabel usernametxt;
     private javax.swing.JTextArea welcome_jta;
+    private javax.swing.JLabel welcomeuser;
     // End of variables declaration//GEN-END:variables
 }

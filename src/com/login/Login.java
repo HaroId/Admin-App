@@ -4,13 +4,8 @@ import com.homepage.Homepage;
 import com.register.Register;
 import com.register.conexion.Conexion;
 import java.awt.Color;
-import java.sql.ResultSet;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 public class Login extends javax.swing.JFrame {
 
