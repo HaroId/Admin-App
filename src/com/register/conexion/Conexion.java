@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+
 public class Conexion {
 
     private String db = "user_db";
@@ -162,8 +163,8 @@ public class Conexion {
             }
             
         
-        }catch (com.mysql.cj.exceptions.ConnectionIsClosedException fe){
-            fe.printStackTrace();
+//        }catch (com.mysql.cj.exceptions.ConnectionIsClosedException fe){
+//            fe.printStackTrace();
             
         }catch (SQLNonTransientConnectionException sqlce){
             sqlce.printStackTrace();

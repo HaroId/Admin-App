@@ -283,8 +283,8 @@ public class Register extends javax.swing.JFrame {
         questionbtntxt = new javax.swing.JLabel();
         passtxt = new javax.swing.JPasswordField();
         vpasstxt = new javax.swing.JPasswordField();
-        nacimientodata = new com.toedter.calendar.JDateChooser();
         usernodisponible = new javax.swing.JLabel();
+        nacimientodata = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 800, 500));
@@ -794,13 +794,11 @@ public class Register extends javax.swing.JFrame {
         });
         bg.add(vpasstxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 180, 30));
 
-        nacimientodata.setDateFormatString("dd,MM,yyyy");
-        bg.add(nacimientodata, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 372, 180, 30));
-
         usernodisponible.setFont(new java.awt.Font("Roboto Light", 0, 10)); // NOI18N
         usernodisponible.setForeground(new java.awt.Color(255, 0, 0));
         usernodisponible.setText("*Usuario no disponible");
         bg.add(usernodisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 120, -1));
+        bg.add(nacimientodata, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 370, 180, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -28,16 +28,16 @@ public class Homepage extends javax.swing.JFrame {
         hideOptions();
         login();
     }
-    
-    public void login(){
-        usernametxt.setText(Conexion.name+" "+Conexion.last_name);
+
+    public void login() {
+        usernametxt.setText(Conexion.name + " " + Conexion.last_name);
         correotxt.setText(Conexion.email);
-        welcomeuser.setText("Welcome! "+Conexion.username);
+        welcomeuser.setText("Welcome! " + Conexion.username);
     }
-    
+
     public void getInfo() {
         Login a = new Login();
-        
+
     }
 
     public void hideOptions() {
@@ -571,14 +571,13 @@ public class Homepage extends javax.swing.JFrame {
             panuserimage.setBackground(Color.DARK_GRAY);
             panusersettings.setBackground(Color.darkGray);
             showemail.setBackground(Color.DARK_GRAY);
-            
+
             bg.setBackground(Color.black);
             welcome_jta.setBackground(Color.black);
             about_jta.setBackground(Color.black);
             panRedes.setBackground(Color.black);
             panImagen.setBackground(Color.black);
             panabouts.setBackground(Color.black);
-            
 
             usernametxt.setForeground(Color.white);
             correotxt.setForeground(Color.white);
@@ -593,7 +592,6 @@ public class Homepage extends javax.swing.JFrame {
             linkedintxt.setForeground(Color.white);
             showemailtxt.setForeground(Color.white);
             welcomeuser.setForeground(Color.white);
-
 
         } else {
             dark = false;
